@@ -7,7 +7,7 @@
 int main(int argc, char* argv[]) {
 
     printf("Testing begins \n");
-    char test_phrase[20] = "if data > (a)";
+    char test_phrase[100] = "if data+92>0x3f then";
     parse(test_phrase);
 
 }
