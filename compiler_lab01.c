@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "stdbool.h"
-
+#include "lex.h"
 
 bool isDelimiter(char ch) {
     
@@ -22,10 +22,16 @@ char* substr(char* s, int left, int right) {
 
     char* res = (char* )malloc((right - left + 2) * sizeof(char));
     // 这里的2是因为还需要存`\0` a
-    if (res == NULL) return NULL;
-
+    if (res == NULL) exit(1);
+    char* l = s + left, *r = s + right;
+    int i = 0;
+    for (i = 0; l < r; i++, l++) {
+        res[i] = *l;
+    }
+    res[i] = '\0';
     return res;
 }
+
 
 // Parsing the input STRING.
 void parse(char* str)
@@ -51,16 +57,15 @@ void parse(char* str)
         } else if (isDelimiter(str[right]) == true && left != right
             ||  (right == len && right != left)) {
 
-            char* substr = substring(str, left, right - 1);
+            char* subString = substr(str, left, right - 1);
 
         }
     }
     return;
 }
 
-int main(int argc, char* argv[]) 
-{
-    char input[100] = "if data+92>0x3f then";
-    parse(input);
-    return 0;
-}
+// int main(int argc, char* argv[]) 
+// {
+//     char input[100] = "if data+92>0x3f then";
+//     parse(input);
+//     return 0;
