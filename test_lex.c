@@ -6,9 +6,8 @@
 
 int main(int argc, char* argv[]) {
 
-    printf("Let's do some tests\n");
-    char test_substr[20] = "helloworld";
-    char* res = substr(test_substr, 0, 5);
-    printf("%s", res);        
+    printf("Testing begins \n");
+    char test_phrase[20] = "if data > (a)";
+    parse(test_phrase);
 
 }
