@@ -10,15 +10,6 @@ double calRange() {
     return (max(a, n) - min(a, n)) * 1.0;
 }
 
-double calVar() {
-    double var = 0.0, me = mean(a, n);
-    for (int i = 0; i < n; i++) {
-        double t = (a[i] - me) * (a[i] - me);
-        var += t;
-    }
-    return var / (n - 1);
-}
-
 double calMadMean() {
     double sum = 0.0, me = mean(a, n);
     for (int i = 0; i < n; i++) {
@@ -56,6 +47,6 @@ int main()
     for (int i = 0; i < n ; i++) scanf("%d", &a[i]);
     sort(a, n);
     //printf("%lf %lf %d %d\n", mean(), middle(), max(), min());
-    printf("%.3lf %.3lf %.3lf %.3lf %.3lf\n", calRange(), calVar(), calMadMean(), calMadMiddle(), calQuar());
+    printf("%.3lf %.3lf %.3lf %.3lf %.3lf\n", calRange(), calVar(a, n), calMadMean(), calMadMiddle(), calQuar());
 
 }

@@ -17,20 +17,26 @@ data_week3_ex02.o: data_week3_ex02.cpp
 	$(CC) $(CFLAGS) -c data_week3_ex02.cpp
 
 ################################################### week 4
-
+# 1
 week4_ex01: data_week4_ex01.o util.o
 	$(CC) $(CFLAGS) -o ex01 data_week4_ex01.o util.o
 
 data_week4_ex01.o: data_week4_ex01.cpp dm.h
 	$(CC) $(CFLAGS) -c data_week4_ex01.cpp
 
+# 2
+week4_ex02: data_week4_ex02.o util.o
+	$(CC) $(CFLAGS) -o ex02 data_week4_ex02.o util.o
 
-week4_ex02: data_week4_ex02.o
-	$(CC) $(CFLAGS) -o ex02 data_week4_ex02.o
-
-data_week4_ex02.o: data_week4_ex02.cpp
+data_week4_ex02.o: data_week4_ex02.cpp dm.h
 	$(CC) $(CFLAGS) -c data_week4_ex02.cpp
 
+# 3
+week4_ex03: data_week4_ex03.o util.o
+	$(CC) $(CFLAGS) -o ex03 data_week4_ex03.o util.o
+
+data_week4_ex03.o: data_week4_ex03.cpp dm.h
+	$(CC) $(CFLAGS) -c data_week4_ex03.cpp
 
 
 ################################################# 工具函数
