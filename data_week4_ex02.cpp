@@ -1,5 +1,6 @@
 #include "iostream"
 #include "cmath"
+#include "algorithm"
 #include "dm.h"
 using namespace std;
 const int N = 2010;
@@ -10,10 +11,11 @@ void min_max_norm(double a[], int n) {
 
     double b[n];
     for (int i = 0; i < n; i++) {
+        
         b[i] = (a[i] - minn) / (maxx - minn);
     }
 
-    d_sort(b, n);
+    sort(b, b + n);
     print_array_Double(b, 10);
 
 }
@@ -25,7 +27,7 @@ void z_score_norm(double a[], int n) {
     for (int i = 0; i < n; i++) {
         b[i] = (a[i] - mea) / delta;
     }
-    d_sort(b, n);
+    sort(b, b + n);
     print_array_Double(b, 10);
 }
 
@@ -44,18 +46,17 @@ void dot_norm(double a[], int n) {
         b[i] = a[i] / factor;
     }
 
-    d_sort(b, n);
+    sort(b, b + n);
     print_array_Double(b, 10);
 }
 
 int main()
 {
-    double a[N], n;
-    cin >> n;
-    for (int i = 0; i < n; i++) cin >> a[i];
+    double a[N] = {2.1, 2.4, 10.6, 1.1, 12, 6, 7, 8, 9, 10}, n = 10;
+    // cin >> n;
+    // for (int i = 0; i < n; i++) cin >> a[i];
     min_max_norm(a, n);
     z_score_norm(a, n);
     dot_norm(a, n);
-    printf("%d", get_digit(9999));
-
+    
 }
