@@ -1,61 +1,17 @@
 #include <stdio.h>
 #include <math.h>
+#include "dm.h"
 
 const int N = 2000 + 10;
 int a[2010], n;
 
 
-void sort(int a[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = i + 1; j < n; j++) {
-            if (a[i] > a[j]) {
-                int t = a[i];
-                a[i] = a[j];
-                a[j] = t; 
-            } 
-        }
-    }
-}
-
-double mean() {
-    double sum = 0.0;
-    for (int i = 0; i < n; i ++) {
-        sum += a[i];
-    }
-    return sum /= n;
-}
-
-double middle(int a[], int n) {
-    // 0, 1, 2, 3
-    if (n & 1) 
-        return a[n/2] * 1.0;
-    else 
-        return (a[n/2] + a[n / 2 + 1]) * 1.0 / 2;
-}
-
-
-int min() {
-   int m = a[0];
-   for (int i = 0; i < n; i ++) {
-    if (a[i] < m) m = a[i];  
-   } 
-   return m;
-}
-
-int max() {
-   int m = a[0];
-   for (int i = 0; i < n; i ++) {
-    if (a[i] > m) m = a[i];  
-   } 
-   return m;
-}
-
 double calRange() {
-    return (max() - min()) * 1.0;
+    return (max(a, n) - min(a, n)) * 1.0;
 }
 
 double calVar() {
-    double var = 0.0, me = mean();
+    double var = 0.0, me = mean(a, n);
     for (int i = 0; i < n; i++) {
         double t = (a[i] - me) * (a[i] - me);
         var += t;
@@ -64,7 +20,7 @@ double calVar() {
 }
 
 double calMadMean() {
-    double sum = 0.0, me = mean();
+    double sum = 0.0, me = mean(a, n);
     for (int i = 0; i < n; i++) {
         sum += fabs(a[i]*1.0 - me);
     }
