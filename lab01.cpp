@@ -1,31 +1,45 @@
 #include <stdio.h>
 #include <string.h>
+#include <string>
 #include <stdlib.h>
 #include "stdbool.h"
 #include "lex.h"
 
-
+Symbol symbol[N];
+int s_idx = 0;
 
 bool isNonsense(char ch) {
 
     if (ch == ' ' || ch == '\t' || ch == '\n')
-         return (true);
+         return true;
     return false;
 }
 
 bool isDelimiter(char ch) {
     
     if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '+' || ch == '-'  || ch == '*'  || ch == '/'
-         || ch == '<'  || ch == '>' || ch == '('  || ch == ')' || ch == ';' ) 
-         return (true);
+         || ch == '<'  || ch == '>' || ch == '('  || ch == ')' || ch == ';' || ch == '=' ) 
+         return true;
 
     return false;
 }
 
 bool isOperator(char ch) {
-    return  (ch == '+' || ch == '-' || ch == '*' || ch == '/');
+    return  (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '=');
 }
 
+
+string chartoString (char ch) {
+    string s;
+    s = ch;
+    return s;
+}
+
+string char_array_to_string(char* s) {
+    string ss;
+    ss = s;
+    return s;
+}
 
 char* substr(char* s, int left, int right) {
 
@@ -47,6 +61,14 @@ bool isReserveWord(char* str) {
                 !strcmp(str, "else")  || !strcmp(str, "do")   || !strcmp(str, "if");
 }
 
+
+
+void update_symbol_table(enum SYMBOL s, string c) {
+    symbol[s_idx].s = s;
+    symbol[s_idx].content = c;
+    s_idx++;
+}
+
 // Parsing the input STRING.
 void parse(char* str)
 {
@@ -61,14 +83,16 @@ void parse(char* str)
             if (isOperator( str[right] )) {
                 // + 1 是用来与该符号临近的符号作比较
                 // if (right + 1 <= len && str[right] == str[right + 1] || str[right + 1] == '=') {
-                //     printf("%c%c is a dul Operator", str[right], str[right+1]);
+                //     //printf("%c%c is a dul Operator", str[right], str[right+1]);
                 //     right++;
                 // }
-                printf("%c is an Operator\n", str[right]);
+                update_symbol_table(OPERATOR, chartoString(str[right]));
+                //printf("%c is an Operator\n", str[right]);
             } else if(isNonsense( str[right] )){
                 // do nothing
             } else {
-                printf("%c is diliminater\n", str[right]);
+                update_symbol_table(DELIMINATOR, chartoString(str[right]));
+                //printf("%c is diliminater\n", str[right]);
             }
 
             right++;  // left 和 right 并行增加
@@ -77,28 +101,35 @@ void parse(char* str)
             ||  (right == len && right != left)) { // 另一种是 right 指针指向 字符串 末尾
 
             char* subString = substr(str, left, right - 1); // -1 是因为right 指针指向的位置在 界符 上 
-            int len = right - 1 - left;
+            int len = right - left;
             /* 判断是不是关键字 */
             if (isReserveWord(subString)) {
-                printf("%s is reserved word\n", subString);
+                update_symbol_table(RESERVED, char_array_to_string(subString));
+                //printf("%s is reserved word\n", subString);
 
             /* 判断是不是 十进制数字 */
             } else if (len == 1 && subString[0] == '0' || 
-                        len > 1 && subString[0] != '0') {
-                printf("%s is decimal\n", subString); 
+                        (len > 1 && subString[0] != '0' \
+                          && subString[0] >= '1' && subString[0] <= '9' \
+                        )) {
+                update_symbol_table(DEC, char_array_to_string(subString));
+                //printf("%s is decimal\n", subString); 
 
             /* 判断是不是 十六进制数字 */
-            } else if (len > 2  && subString[0] == '0' && subString[1] == 'x') {
-                printf("%s is hex\n", subString); 
+            } else if (len > 2  && subString[0] == '0' && ( subString[1] == 'x' || subString[1] == 'X' ) ) {
+                update_symbol_table(HEX, char_array_to_string(subString));
+                //printf("%s is hex\n", subString); 
             
             } else if (len > 1 && subString[0] == '0') {
-
-                printf("%s is oct\n", subString); 
+                update_symbol_table(OCT, char_array_to_string(subString));
+                //printf("%s is oct\n", subString); 
 
             } else {
-                printf("%s is identifier\n", subString);
+                update_symbol_table(IDENTIFIER, char_array_to_string(subString));
+                //printf("%s is identifier\n", subString);
             }
             left = right;
+            free(subString);
         }
     }
     return;
