@@ -1,9 +1,20 @@
 CC=g++
 CFLAGS=-g --std=c++17
+########################################### 编译原理 实验二
+lab02: lab02.o grammer.o
+	$(CC) $(CFLAGS) -o lab02 lab02.o grammer.o
+	@mv *.o out/
+
+grammer.o: grammer.cpp
+	$(CC) $(CFLAGS) -c grammer.cpp
+
+lab02.o: lab02.cpp
+	$(CC) $(CFLAGS) -c lab02.cpp
+
 
 ########################################### 编译原理 实验一
-lex: test_lex.o lab01.o unit_test.o 
-	$(CC) $(CFLAGS) -o lex test_lex.o lab01.o unit_test.o
+lab01: test_lex.o lab01.o unit_test.o 
+	$(CC) $(CFLAGS) -o lab01 lab01.o test_lex.o unit_test.o
 	@mv *.o out/
 
 test_lex.o: test_lex.cpp # 
@@ -18,7 +29,9 @@ unit_test.o: unit_test.cpp unit_test.h
 
 clean:
 	rm -f 
-	rm -f lex
+	rm -f lab01
+	rm -f lab02
+	rm -f *.o
 	rm -f out/*.o
 
 save:
