@@ -3,7 +3,6 @@ CFLAGS=-g --std=c++17
 ########################################### 编译原理 实验二
 lab02: lab02.o grammer.o
 	$(CC) $(CFLAGS) -o lab02 lab02.o grammer.o
-	@mv *.o out/
 
 grammer.o: grammer.cpp
 	$(CC) $(CFLAGS) -c grammer.cpp
