@@ -1,17 +1,13 @@
 #include <iostream>
-#include <grammer.h>
-
-void add() {
-
-}
+#include "grammar.h"
 
 int main() 
 {
-    Grammer grammer;
-    grammer.read_generator_list("grammer.txt");
-    grammer.print_grammer();
-    grammer.print_non_termial();
-    grammer.print_termial();
+    Grammar grammar;
+    grammar.read_generator_list("grammar.txt");
+    grammar.print_grammar();
+    grammar.print_non_termial();
+    grammar.print_termial();
     return 0;
 }
 

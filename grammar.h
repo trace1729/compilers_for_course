@@ -1,28 +1,35 @@
-#ifndef GRAMMER_H
-#define GRAMMER_H 
+#ifndef GRAMMAR_H
+#define GRAMMAR_H 
 
 #include <iostream>
 #include <fstream>
 #include <set>
 #include <map>
+
+
+#define VAREPSILON "@"
+#define TERMIANL 0
+#define NONTERMINAL 1
+#define OFFSET 27 
+
 using std::set;
 using std::map;
 using std::string;
 using std::cin; using std::cout;
 using std::endl;
 
-class Grammer {
+class Grammar {
 
 public:
-    using production=std::pair<string, string>;
-    Grammer(); //  构造器
-    ~Grammer(); // 销毁器
+    Grammar(); //  构造器
+    ~Grammar(); // 销毁器
     void read_generator_list(string filename);//从文件读取文法
-    void print_grammer(); // 打印整个文法
+    void print_grammar(); // 打印整个文法
     void print_non_termial();
     void print_termial();
+    char gen_non_ter();
+    void use_non_ter(char nt);
 
-private:
     /* 打印一个产生式的右端  */
     template <typename T=string>
     void print_set(const set<T>& ss) {
@@ -34,10 +41,9 @@ private:
             else
                 cout << *it ;
         }
-        cout << ";" << endl;
     }
     /* 打印整个文法 */
-    void print_table (const map<string, set<string>>& m);
+    void print_table (const map<char, set<string>>& m);
     /* 产生式的数量 */
     int num;
     /* 非终端元素 */
@@ -47,8 +53,11 @@ private:
     /* 开始符号 */
     string start;
     /* 保存产生式 */
-    map<string, set<string>> generator; 
-
+    map<char, set<string>> generator; 
+    /* 保存未使用的字母 */
+private:
+    int* alphabet;
+    const int SIZE = 27;
 };
 
 

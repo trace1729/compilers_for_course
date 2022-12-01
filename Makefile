@@ -1,11 +1,20 @@
 CC=g++
 CFLAGS=-g --std=c++17
-########################################### 编译原理 实验二
-lab02: lab02.o grammer.o
-	$(CC) $(CFLAGS) -o lab02 lab02.o grammer.o
 
-grammer.o: grammer.cpp
-	$(CC) $(CFLAGS) -c grammer.cpp
+########################################### 编译原理 实验三
+lab03: lab03.o grammar.o grammar.h ./grammar1.txt
+	$(CC) $(CFLAGS) -o lab03 lab03.o grammar.o 
+	@./lab03
+
+lab03.o: lab03.cpp
+	$(CC) $(CFLAGS) -c lab03.cpp
+
+########################################### 编译原理 实验二
+lab02: lab02.o grammar.o grammar.h
+	$(CC) $(CFLAGS) -o lab02 lab02.o grammar.o
+
+grammar.o: grammar.cpp
+	$(CC) $(CFLAGS) -c grammar.cpp
 
 lab02.o: lab02.cpp
 	$(CC) $(CFLAGS) -c lab02.cpp

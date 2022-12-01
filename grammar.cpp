@@ -1,17 +1,33 @@
 #include <iostream>
 #include <fstream>
-#include <grammer.h>
-using std::cin; using std::cout;
-using std::endl;
+#include "grammar.h"
 
-Grammer::Grammer() {
+Grammar::Grammar() { 
+    this->alphabet = new int[SIZE];
+    for (int i = 0; i < SIZE; i++) {
+        this->alphabet[i] = 0;
+    }
     num = 0;
     start = "";
 }
 
-Grammer::~Grammer() {
+Grammar::~Grammar() {
     num = 0;
     start = "";
+}
+
+
+char Grammar::gen_non_ter() {
+    for (int i = 0; i < SIZE; i++) {
+        if (this->alphabet[i] == 0) {
+            return (char)(i + 'A');
+        }
+    }
+    return '\0';
+}
+
+void Grammar::use_non_ter(char nt) {
+    this->alphabet[(int)(nt - 'A')] = 1;
 }
 
 /**
@@ -24,11 +40,10 @@ Grammer::~Grammer() {
  *    if not in non-terminal set 
  *    put it in terminal set
  */
-void Grammer::read_generator_list(string filename){
+void Grammar::read_generator_list(string filename){
     string s;
-    std::ifstream file("./grammer.txt");
+    std::ifstream file(filename);
     while(std::getline(file, s)) {
-
         if (file.fail() || file.eof()) {
             break;
         }
@@ -36,7 +51,8 @@ void Grammer::read_generator_list(string filename){
         string s2 = s.substr(s.find('>') + 1, s.length() - s.find('>') - 2);
         // std::cout << s2 << std::endl;
         this->non_terminal.insert(s1[0]);
-        generator[s1].insert(s2);
+        this->use_non_ter(s1[0]);
+        generator[s1[0]].insert(s2);
     }
 
     for (auto & [k, v]:generator) {
@@ -48,41 +64,26 @@ void Grammer::read_generator_list(string filename){
             }
         }
     }
-
 }
 
-void Grammer::print_grammer() {
+void Grammar::print_grammar() {
     print_table(generator);
 }
 
-void Grammer::print_non_termial() {
+void Grammar::print_non_termial() {
     cout << "文法G的非终结符：" << endl;
     print_set<char>(non_terminal);
 }
-void Grammer::print_termial() {
+void Grammar::print_termial() {
     cout << "文法G的终结符" << endl;
     print_set<char>(terminal);
 }
 
-
-//void Grammer::print_char_set(const set<char>& ss) {
-    //int size = ss.size(), cnt = 0;
-    //for (auto it = ss.begin(); it != ss.end(); ++it) {
-        //cnt++;
-        //if (cnt < size)
-            //cout << *it << "|";
-        //else
-            //cout << *it ;
-    //}
-    //cout << ";" << endl;
-//}
-//
-
-
-void Grammer::print_table (const map<string, set<string>>& m) {
+void Grammar::print_table (const map<char, set<string>>& m) {
     for (const auto& [non_terminal, set] : m) {
         cout << non_terminal << "->";
         print_set(set);
+        putchar('\n');
     }
 }
 
