@@ -5,11 +5,11 @@
             "name": "(gdb) Bash on Windows Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/root/trace/learning/lex/lex1",
+            "program": "/root/trace/learning/course/compilers/lab03",
             "args": [],
             "stopAtEntry": false,
             "miDebuggerArgs": "",
-            "cwd": "/root/trace/learning/lex/",
+            "cwd": "/root/trace/learning/course/compilers/",
             "environment": [],
             "externalConsole": false,
             "sourceFileMap": {
