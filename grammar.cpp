@@ -1,7 +1,9 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "grammar.h"
 
+using std::vector;
 Grammar::Grammar() { 
     this->alphabet = new int[SIZE];
     for (int i = 0; i < SIZE; i++) {
@@ -49,14 +51,20 @@ void Grammar::read_generator_list(string filename){
         if (file.fail() || file.eof()) {
             break;
         }
-        string s1 = s.substr(0, s.find('-'));
-        string s2 = s.substr(s.find('>') + 1, s.length() - s.find('>') - 2);
-        this->non_terminal.insert(s1[0]);
+        char nt = mystrip(s.substr(0, s.find('-')))[0];
+        
+        string t = s.substr(s.find('>') + 1);
+        auto prods = mysplit(t, '|');
+
+        this->non_terminal.insert(nt);
         if (cnt++ == 0) {
-            this->start = s1[0];
+            this->start = nt;
         }
-        this->use_non_ter(s1[0]);
-        generator[s1[0]].insert(s2);
+        this->use_non_ter(nt);
+
+        for (auto & prod : prods) {
+            generator[nt].insert(prod);
+        }
     }
 
     for (auto & [k, v]:generator) {
@@ -91,3 +99,41 @@ void Grammar::print_table (const map<char, set<string>>& m) {
     }
 }
 
+string Grammar::mystrip(string src)
+{
+    int first_not_space = src.find_first_not_of(' ');
+    
+    string res = src;
+    if (first_not_space != string::npos) {
+        // 找到了空格
+        res = src.substr(first_not_space);
+    }
+    int rfirst_not_space = res.find_last_not_of(' ');
+    if (rfirst_not_space != string::npos) {
+        // 找到了空格
+        res = res.substr(0, rfirst_not_space + 1);
+    }
+    return res;
+}
+
+vector<string> Grammar::mysplit (string src, char toSplit) {
+    vector<string> symbols;
+    src = mystrip(src);
+    int find_spilt_point = src.find(toSplit);
+
+    while(find_spilt_point != string::npos) {
+        string t = src.substr(0, find_spilt_point);
+        t = mystrip(t);
+        if (t.length() >= 1 && t != " ") { // 去除空格
+            symbols.push_back(t);
+        }
+        src = src.substr(find_spilt_point + 1);
+        find_spilt_point = src.find(toSplit);
+    }
+
+    if (mystrip(src).length() >= 1) {
+        symbols.push_back(src.substr(0, src.find_last_of(';')));
+    }
+
+    return symbols;
+}

@@ -1,9 +1,10 @@
 #ifndef GRAMMAR_H
 #define GRAMMAR_H 
-
 #include <iostream>
 #include <fstream>
 #include <set>
+#include <string>
+#include <vector>
 #include <map>
 
 
@@ -15,6 +16,7 @@
 using std::set;
 using std::map;
 using std::string;
+using std::vector;
 using std::cin; using std::cout;
 using std::endl;
 
@@ -30,6 +32,9 @@ public:
     char gen_non_ter();
     void use_non_ter(char nt);
 
+    static string mystrip(string src);
+    static vector<string> mysplit(string src, char toSplit);
+
     /* 打印一个产生式的右端  */
     template <typename T=string>
     void print_set(const set<T>& ss) {
@@ -44,6 +49,7 @@ public:
     }
     /* 打印整个文法 */
     void print_table (const map<char, set<string>>& m);
+    
     /* 产生式的数量 */
     int num;
     /* 非终端元素 */
@@ -64,5 +70,7 @@ struct Production {
     char LHS;
     string RHS;
 };
+
+
 
 #endif
