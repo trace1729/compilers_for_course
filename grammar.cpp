@@ -8,12 +8,10 @@ Grammar::Grammar() {
         this->alphabet[i] = 0;
     }
     num = 0;
-    start = "";
 }
 
 Grammar::~Grammar() {
     num = 0;
-    start = "";
 }
 
 
@@ -40,8 +38,12 @@ void Grammar::use_non_ter(char nt) {
  *    if not in non-terminal set 
  *    put it in terminal set
  */
+
+
+
 void Grammar::read_generator_list(string filename){
     string s;
+    int cnt = 0;
     std::ifstream file(filename);
     while(std::getline(file, s)) {
         if (file.fail() || file.eof()) {
@@ -49,8 +51,10 @@ void Grammar::read_generator_list(string filename){
         }
         string s1 = s.substr(0, s.find('-'));
         string s2 = s.substr(s.find('>') + 1, s.length() - s.find('>') - 2);
-        // std::cout << s2 << std::endl;
         this->non_terminal.insert(s1[0]);
+        if (cnt++ == 0) {
+            this->start = s1[0];
+        }
         this->use_non_ter(s1[0]);
         generator[s1[0]].insert(s2);
     }

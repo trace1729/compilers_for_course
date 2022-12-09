@@ -5,38 +5,36 @@
 
 #include "lex.h"
 
-extern Symbol symbol[N];
-extern int s_idx;
 
-void print_symbol_table () {
-    for (int i = 0; i < s_idx; i++) {
-        switch (symbol[i].s)
+void print_symbol_table (SymbolTable symbol) {
+    for (int i = 0; i < symbol.size(); i++) {
+        switch (symbol[i].first)
         {
         case RESERVED:
-            printf("<%s, ->\n", symbol[i].content.c_str());
+            printf("<%s, ->\n", symbol[i].second.c_str());
             break;
         
         case IDENTIFIER:
-            printf("<0, %s>\n", symbol[i].content.c_str());
+            printf("<0, %s>\n", symbol[i].second.c_str());
             break;
         
         case DELIMINATOR:
-            printf("<%s, ->\n", symbol[i].content.c_str());
+            printf("<%s, ->\n", symbol[i].second.c_str());
             break;
 
         case OPERATOR:
-            printf("<%s, ->\n", symbol[i].content.c_str());
+            printf("<%s, ->\n", symbol[i].second.c_str());
             break;
 
         case DEC:
-            printf("<1, %s>\n", symbol[i].content.c_str());
+            printf("<1, %s>\n", symbol[i].second.c_str());
             break;
         case OCT:
-            printf("<2, %s>\n", symbol[i].content.c_str());
+            printf("<2, %s>\n", symbol[i].second.c_str());
             break;
 
         case HEX:
-            printf("<3, %s>\n", symbol[i].content.c_str());
+            printf("<3, %s>\n", symbol[i].second.c_str());
             break;
         
         default:
@@ -54,7 +52,7 @@ int main(int argc, char* argv[]) {
         \n\tdata=data-01;";
         
     int a = 2;
-    parse(test_phrase);
-    print_symbol_table();
+    SymbolTable symbols = parse(test_phrase);
+    print_symbol_table(symbols);
 
 }

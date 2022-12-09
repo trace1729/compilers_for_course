@@ -2,12 +2,10 @@
 #include <string.h>
 #include <string>
 #include <stdlib.h>
+#include <vector>
 #include "stdbool.h"
 #include "lex.h"
-
-Symbol symbol[N];
-int s_idx = 0;
-
+using std::vector;
 bool isNonsense(char ch) {
 
     if (ch == ' ' || ch == '\t' || ch == '\n')
@@ -63,15 +61,14 @@ bool isReserveWord(char* str) {
 
 
 
-void update_symbol_table(enum SYMBOL s, string c) {
-    symbol[s_idx].s = s;
-    symbol[s_idx].content = c;
-    s_idx++;
+void update_symbol_table(SymbolTable& symbols, enum SYMBOL s, string c) {
+    symbols.push_back({s, c});
 }
 
 // Parsing the input STRING.
-void parse(char* str)
+SymbolTable parse(char* str)
 {
+    SymbolTable symbols;
     int left = 0, right = 0;
     int len = strlen(str);
  
@@ -86,12 +83,12 @@ void parse(char* str)
                 //     //printf("%c%c is a dul Operator", str[right], str[right+1]);
                 //     right++;
                 // }
-                update_symbol_table(OPERATOR, chartoString(str[right]));
+                update_symbol_table(symbols, OPERATOR, chartoString(str[right]));
                 //printf("%c is an Operator\n", str[right]);
             } else if(isNonsense( str[right] )){
                 // do nothing
             } else {
-                update_symbol_table(DELIMINATOR, chartoString(str[right]));
+                update_symbol_table(symbols, DELIMINATOR, chartoString(str[right]));
                 //printf("%c is diliminater\n", str[right]);
             }
 
@@ -104,7 +101,7 @@ void parse(char* str)
             int len = right - left;
             /* 判断是不是关键字 */
             if (isReserveWord(subString)) {
-                update_symbol_table(RESERVED, char_array_to_string(subString));
+                update_symbol_table(symbols, RESERVED, char_array_to_string(subString));
                 //printf("%s is reserved word\n", subString);
 
             /* 判断是不是 十进制数字 */
@@ -112,25 +109,27 @@ void parse(char* str)
                         (len > 1 && subString[0] != '0' \
                           && subString[0] >= '1' && subString[0] <= '9' \
                         )) {
-                update_symbol_table(DEC, char_array_to_string(subString));
+                update_symbol_table(symbols, DEC, char_array_to_string(subString));
                 //printf("%s is decimal\n", subString); 
 
             /* 判断是不是 十六进制数字 */
             } else if (len > 2  && subString[0] == '0' && ( subString[1] == 'x' || subString[1] == 'X' ) ) {
-                update_symbol_table(HEX, char_array_to_string(subString));
+                update_symbol_table(symbols, HEX, char_array_to_string(subString));
                 //printf("%s is hex\n", subString); 
             
             } else if (len > 1 && subString[0] == '0') {
-                update_symbol_table(OCT, char_array_to_string(subString));
+                update_symbol_table(symbols, OCT, char_array_to_string(subString));
                 //printf("%s is oct\n", subString); 
 
             } else {
-                update_symbol_table(IDENTIFIER, char_array_to_string(subString));
+                update_symbol_table(symbols, IDENTIFIER, char_array_to_string(subString));
                 //printf("%s is identifier\n", subString);
             }
             left = right;
             free(subString);
         }
     }
-    return;
+    return symbols;
+
+
 }

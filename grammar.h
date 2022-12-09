@@ -7,7 +7,7 @@
 #include <map>
 
 
-#define VAREPSILON "@"
+#define VAREPSILON '@'
 #define TERMIANL 0
 #define NONTERMINAL 1
 #define OFFSET 27 
@@ -37,9 +37,9 @@ public:
         for (auto it = ss.begin(); it != ss.end(); ++it) {
             cnt++;
             if (cnt < size)
-                cout << *it << "|";
+                cout << "[" << cnt << " " << *it << "] ";
             else
-                cout << *it ;
+                cout << "[" << cnt << " " << *it << "]";
         }
     }
     /* 打印整个文法 */
@@ -51,7 +51,7 @@ public:
     /* 终端元素 */
     set<char> terminal;
     /* 开始符号 */
-    string start;
+    char start;
     /* 保存产生式 */
     map<char, set<string>> generator; 
     /* 保存未使用的字母 */
@@ -60,5 +60,9 @@ private:
     const int SIZE = 27;
 };
 
+struct Production {
+    char LHS;
+    string RHS;
+};
 
 #endif

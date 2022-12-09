@@ -31,6 +31,14 @@ for i in 1..n
        (2)
         if new production have direct left recursion
         elinate it
+
+        void do_substitution() {
+            1. remove A_i -> \sum delta_i gammer, stores it
+            in a string s.
+            2. for each production belongs to delta_j, we
+            reassemble it with the rest of RHS of A_i's production.
+            store them into A_i's production.
+        }
 ```
 How to store the value of the non-termial
 - store them as char
@@ -38,5 +46,12 @@ How to store the value of the non-termial
     - no problem, using 'B' - 27 as the new
 - store them as string
     - it is hard to do comparsion
-    - 
-    - 
+    
+## example about eliminating indirect recursion 
+
+
+| j\i  | 1 ( R ) | 2 (Q)           | 3 (S)             |
+|------|-------|-----------------|-------------------|
+| 1( R ) | j > i | 存在$Q \to R$吗 | 存在$S \to R$吗   |
+| 2(Q) | j > i | j > i           | 存在 $S \to Q$ 吗 |
+| 3(S) | j > i | j > i           | j > i             |

@@ -2,6 +2,7 @@
 #define LEX_H
 
 #include <string>
+#include <vector>
 using namespace std;
 
 enum SYMBOL {
@@ -20,16 +21,12 @@ enum SYMBOL {
 
 };
 
-typedef struct {
-    enum SYMBOL s;
-    string content;
-} Symbol;
 
 const int N = 1000;
-
+typedef vector<pair<SYMBOL, string> > SymbolTable;
 
 char* substr(char* s, int left, int right);
-void parse(char* str);
+SymbolTable parse(char* str);
 
 
 #endif

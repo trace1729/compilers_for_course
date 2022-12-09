@@ -1,0 +1,51 @@
+exists left Recursio E->E+T !
+Left recursion exists for non-termial E
+insert E -> TA
+insert A -> +TA
+No left recusion exists for non terminal F
+exists left Recursio T->T*F !
+Left recursion exists for non-termial T
+insert T -> FB
+insert B -> *FB
+----------
+A->+TA|@
+B->*FB|@
+E->TA
+F->(E)|i
+T->FB
+----------
+Initilize follow set
+Adding start symbol # for E
+Processing prod A->+TA
+Processing prod A->@
+Processing prod B->*FB
+Processing prod B->@
+Processing prod E->TA
+Processing prod F->(E)
+Processing prod F->i
+Processing prod T->FB
+Processing prod A->+TA
+Processing prod A->@
+Processing prod B->*FB
+Processing prod B->@
+Processing prod E->TA
+Processing prod F->(E)
+Processing prod F->i
+Processing prod T->FB
+Processing prod A->+TA
+Processing prod A->@
+Processing prod B->*FB
+Processing prod B->@
+Processing prod E->TA
+Processing prod F->(E)
+Processing prod F->i
+Processing prod T->FB
+---------
+T: {[i : T->FB] [( : T->FB] 
+F: {[i : F->i] [( : F->(E)] 
+E: {[i : E->TA] [( : E->TA] 
+B: {[+ : B->@] [) : B->@] [# : B->@] [* : B->*FB] 
+A: {[) : A->@] [# : A->@] [+ : A->+TA] 
+---------
+[1 A] [2 B] [3 E] [4 F] [5 T][1 (] [2 )] [3 *] [4 +] [5 @] [6 i]
+---------
