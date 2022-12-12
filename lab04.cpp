@@ -179,7 +179,7 @@ FollowSet ComputeFollowSet(Grammar& grammar, FirstSet first_set)
                             TerminalSet first_tmp = ComputeMuFirstSet(RHS.substr(i + 1), first_set);
                             if (first_tmp.count(VAREPSILON) == 1)
                             {
-                                if (c == nt) continue;
+                                if (c == nt) continue;  
 #if DEBUG == 1
                                 cout <<"\tsince first(" << RHS.substr(i+1) << ") is nullable" << endl; 
                                 cout <<"\tAdding follow(" << nt << ")" << " to follow(" << c << ")!" << endl;
@@ -271,13 +271,7 @@ bool LL_parse( const Grammar& grammar, const string& inpu, ParseTable& table) {
         else if (grammar.non_terminal.count(top) == 1)
         {
             // If the top symbol on the symbol_stack is a nonterminal, look up the
-            // production to use for that nonterminal in the predictive parsing
-            // table, using the current input symbol as the lookahead symbol.
-            // If there is no entry in the table for the nonterminal and the
-            // current input symbol, the input string is not part of the
-            // language described by the grammar. Otherwise, pop the nonterminal
-            // from the stack and push the right-hand side of the production
-            // onto the stack in reverse order.
+
             if (table[top].count(input[pos]) == 1) {
                 symbol_stack.pop_back();
                 Production prod = table[top][input[pos]];
@@ -345,7 +339,9 @@ int main()
     }
     cout << "---------" << endl;
 
-    string test_parse = "i*i+i";
+    string test_parse = "1+2";
+    
+    
     
     if (LL_parse(grammar, test_parse, parse_table)) {
         cout << test_parse << " is part of this grammar" << endl;
