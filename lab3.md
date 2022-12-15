@@ -55,3 +55,75 @@ How to store the value of the non-termial
 | 1( R ) | j > i | 存在$Q \to R$吗 | 存在$S \to R$吗   |
 | 2(Q) | j > i | j > i           | 存在 $S \to Q$ 吗 |
 | 3(S) | j > i | j > i           | j > i             |
+
+
+## Left factor
+How to implement left factor?
+To find common factor for productions of a non-terminal.
+We need to find the longest common prefix shared at least
+by two prodictions in a production set.
+
+To implement it, I have found trie datastructure pretty helpful.
+
+Below is the sudo code for doing left factor
+
+```python
+for nt in non-terminal-set:
+    prod_trie = Trie()
+    for prod in nt.prod:
+        prod_trie.insert(prod)
+    
+    while (len(prod_trie.longest_prefix) > 0):
+        prefix_set = prod_trie.collect(prod.longest_prefix)
+        new_terminal = get_new_terminal()
+        for ss in prefix_set:
+            nt.prod.erase(ss)
+            new_terminal.prod.insert(ss.stip(prod.longest_prefix))
+        nt.insert(prod.longest_prefix + new_termial)
+        
+    
+        
+```
+
+## How do we implement a trie
+ADT for a trie
+```cpp
+
+#ifndef TRIE_H
+#define TRIE_H
+
+#include <string>
+#include <unordered_map>
+#include <vector>
+using namespace std;
+
+class MyTrie {
+
+    class Node {
+        using NodePtr=Node*;
+        bool isKey;
+        unordered_map<char, NodePtr> trie_map;
+
+    public:
+        Node ();
+        Node (bool iskey);
+        ~Node();
+    };
+
+    Node root;
+public:
+    MyTrie ();
+    ~MyTrie();
+    void add (string key);
+};
+
+
+#endif
+```
+
+Notice That, because Node is used as paramter type before fully 
+defined. So We need to use `pointer to Node` as paramter instead 
+of `Node`.
+
+
+### How to implement LongestPrefix

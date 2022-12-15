@@ -5,7 +5,7 @@
             "name": "(gdb) Bash on Windows Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/root/trace/learning/course/compilers/lab04",
+            "program": "/root/trace/learning/course/compilers/trie",
             "args": [],
             "stopAtEntry": false,
             "miDebuggerArgs": "",

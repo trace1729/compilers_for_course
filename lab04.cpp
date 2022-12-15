@@ -327,7 +327,7 @@ int main()
         }
         cout << "}" << endl;
     }
-#endif
+#endif 
     auto parse_table = construct_parse_table(grammar, first_set, follow_set);
     cout << "---------" << endl;
     for (const auto& [nt, predict] :parse_table) {
@@ -339,17 +339,41 @@ int main()
     }
     cout << "---------" << endl;
 
-    string test_parse = "1+2";
-    
-    
-    
-    if (LL_parse(grammar, test_parse, parse_table)) {
-        cout << test_parse << " is part of this grammar" << endl;
-    } else {
-        cout << test_parse << " is not part of this grammar" << endl;
-    }
+    string test_phrase = "(1+2)+(1+3)";
+    char res[100];
+    auto symbol = parse(test_phrase);
 
-    // read file
+    int idx = 0;
+
+    for (int i = 0; i < symbol.size(); i++) {
+        switch (symbol[i].first)
+        {
+        
+        case DELIMINATOR:
+        case OPERATOR:
+            res[idx++] = symbol[i].second[0];
+            break;
+
+        case IDENTIFIER:
+            res[idx++] = 'i';
+            break;
+        
+        default:
+            break;
+        }
+    }
+    res[idx] = '\0';
+    
+    string toTest(res);
+    cout << toTest << endl;
+    
+    if (LL_parse(grammar, toTest, parse_table)) {
+        cout << test_phrase << " is part of this grammar" << endl;
+    
+    } else {
+        cout << test_phrase << " is not part of this grammar" << endl;
+
+    }
     
     return 0;
 }

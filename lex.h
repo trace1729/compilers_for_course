@@ -25,8 +25,7 @@ enum SYMBOL {
 const int N = 1000;
 typedef vector<pair<SYMBOL, string> > SymbolTable;
 
-char* substr(char* s, int left, int right);
-SymbolTable parse(char* str);
+SymbolTable parse(string str);
 
 
 #endif

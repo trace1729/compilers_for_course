@@ -46,13 +46,11 @@ void print_symbol_table (SymbolTable symbol) {
 int main(int argc, char* argv[]) {
 
     printf("Testing begins \n");
-    char test_phrase[100] = "if data+92>0x3f then; \
+    string test1 = "if data+92>0x3f then; \
         \n\t data=data+01; \
         \nelse   \
-        \n\tdata=data-01;";
-        
-    int a = 2;
-    SymbolTable symbols = parse(test_phrase);
+        \n\tdata=data-01\n1+2;";
+    string test2 = "1**2";
+    SymbolTable symbols = parse(test2);
     print_symbol_table(symbols);
-
 }

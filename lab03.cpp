@@ -3,6 +3,8 @@
 #include <vector>
 #include "grammar.h"
 #include "elim_rec.h"
+#include "trie.h"
+
 using namespace std;
 
 void elim_dir_rec(Grammar& grammar, char nt) {
@@ -113,20 +115,58 @@ void elim_in_rec(Grammar& grammar) {
     }
 }
 
+void left_factor(Grammar& grammar) {
+    for (auto nt : grammar.non_terminal) {
+        MyTrie prod_trie;
+        for (auto &rhs : grammar.generator[nt])
+        {
+            prod_trie.add(rhs);
+        }
+        string longest = prod_trie.findLongestPrefix();
 
-//int main()
-//{
-  //Grammar grammar;
-  //grammar.read_generator_list("./grammar2.txt");
-  //cout << "----------" << endl;
-  //grammar.print_grammar();
-  //cout << "----------" << endl;
-  //elim_in_rec(grammar);
-  //cout << "----------" << endl;
-  //grammar.print_grammar();
-  //cout << "----------" << endl;
-  //elim_dir_rec(grammar);
-  //cout << "----------" << endl;
-  //grammar.print_grammar();
-  //cout << "----------" << endl;
-//}
+        if (longest.length() > 0)
+        {
+            auto prefix_set = prod_trie.keysWithPrefix(longest);
+            auto new_nt = grammar.gen_non_ter();
+            grammar.use_non_ter(new_nt);
+
+            for (auto s : prefix_set)
+            {
+                grammar.generator[nt].erase(s);
+                string tmp = s.substr(s.find_first_not_of(longest));
+                grammar.generator[new_nt].insert(tmp);
+            }
+
+            grammar.non_terminal.insert(new_nt);
+            grammar.generator[nt].insert(longest + new_nt);
+        }
+    }
+}
+
+int main()
+{
+  Grammar grammar;
+  grammar.read_generator_list("./grammar2.txt");
+  cout << "----------" << endl;
+
+  grammar.print_grammar();
+  cout << "----------" << endl;
+  
+  elim_in_rec(grammar);
+  cout << "----------" << endl;
+
+  grammar.print_grammar();
+  cout << "----------" << endl;
+
+  elim_dir_rec(grammar);
+  cout << "----------" << endl;
+
+  grammar.print_grammar();
+  cout << "----------" << endl;
+
+  left_factor(grammar);
+  grammar.print_grammar();
+  cout << "----------" << endl;
+
+  
+}

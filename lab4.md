@@ -1,7 +1,7 @@
 # LL(1) Parser
 ## some hints
 if you cannot find reference for funtion signature
-you may forgot to include add corresponding .o file
+you may forget to include add corresponding .o file
 
 ## How to construct a first set
 
@@ -67,7 +67,7 @@ for nt in non-terminal:
 Initilize a stack
 push Marker
 push startSymbol
-
+ 
 while stack is not empty:
     if stack.top() == MARKER:
         stack.pop()
@@ -87,7 +87,7 @@ while stack is not empty:
 ```
 ## How to use scan
 read a string
-give it to scan, it returns a symbol array
-we use a map, mapping symbol to terminal and non-terminal
-give it to LL parser, see whether it is vaild or not;
+send it to `scan`, it returns a symbol array
+we use a map, mapping symbols to terminal or non-terminal
+send it to LL parser, see whether it is vaild or not;
 
