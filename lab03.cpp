@@ -143,30 +143,30 @@ void left_factor(Grammar& grammar) {
     }
 }
 
-int main()
-{
-  Grammar grammar;
-  grammar.read_generator_list("./grammar2.txt");
-  cout << "----------" << endl;
+// int main()
+// {
+//   Grammar grammar;
+//   grammar.read_generator_list("./grammar2.txt");
+//   cout << "----------" << endl;
 
-  grammar.print_grammar();
-  cout << "----------" << endl;
+//   grammar.print_grammar();
+//   cout << "----------" << endl;
   
-  elim_in_rec(grammar);
-  cout << "----------" << endl;
+//   elim_in_rec(grammar);
+//   cout << "----------" << endl;
 
-  grammar.print_grammar();
-  cout << "----------" << endl;
+//   grammar.print_grammar();
+//   cout << "----------" << endl;
 
-  elim_dir_rec(grammar);
-  cout << "----------" << endl;
+//   elim_dir_rec(grammar);
+//   cout << "----------" << endl;
 
-  grammar.print_grammar();
-  cout << "----------" << endl;
+//   grammar.print_grammar();
+//   cout << "----------" << endl;
 
-  left_factor(grammar);
-  grammar.print_grammar();
-  cout << "----------" << endl;
+//   left_factor(grammar);
+//   grammar.print_grammar();
+//   cout << "----------" << endl;
 
   
-}
+// }

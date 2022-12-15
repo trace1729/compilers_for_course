@@ -1,16 +1,16 @@
 CC=g++
 CFLAGS=-g --std=c++17
 ########################################### 编译原理 实验五
-lab05: lab05.o grammar.o
-	$(CC) $(CFLAGS) -o lab05 lab05.o grammar.o
-	@./lab05
+lab05: lab05.o grammar.o lab01.o trie.o lr.h ./grammar5.txt
+	$(CC) $(CFLAGS) -o lab05 lab05.o lab01.o grammar.o trie.o
+#@./lab05
 
 lab05.o: lab05.cpp
 	$(CC) $(CFLAGS) -c lab05.cpp
 
 ########################################### 编译原理 实验四
-lab04: lab04.o grammar.o lab03.o ./grammar4.txt
-	$(CC) $(CFLAGS) -o lab04 lab04.o lab03.o lab01.o grammar.o
+lab04: lab04.o grammar.o lab01.o trie.o lab03.o ./grammar4.txt
+	$(CC) $(CFLAGS) -o lab04 lab04.o lab03.o lab01.o grammar.o trie.o
 	@./lab04
 
 lab04.o: lab04.cpp
@@ -59,7 +59,7 @@ trie.o: trie.cpp trie.h
 
 clean:
 	rm -f 
-	rm -f lab01 lab02 lab03 lab04 demo
+	rm -f lab01 lab02 lab03 lab04 lab05 demo 
 	rm -f *.o
 
 save:

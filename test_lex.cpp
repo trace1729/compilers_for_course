@@ -51,6 +51,6 @@ int main(int argc, char* argv[]) {
         \nelse   \
         \n\tdata=data-01\n1+2;";
     string test2 = "1**2";
-    SymbolTable symbols = parse(test2);
+    SymbolTable symbols = parse(test1);
     print_symbol_table(symbols);
 }

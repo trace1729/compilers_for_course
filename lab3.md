@@ -125,5 +125,13 @@ Notice That, because Node is used as paramter type before fully
 defined. So We need to use `pointer to Node` as paramter instead 
 of `Node`.
 
+Also, notice that.
+- in c++03 standard, nested class cannot access private variable in enclosing class, 
+enclosing class cannot access private variable in nested class
+
+- in c++11 standard,  nested class **can**  access private variable in enclosing class, 
+but enclosing class **cannot**  access private variable in nested class
+ 
 
 ### How to implement LongestPrefix
+

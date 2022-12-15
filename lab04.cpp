@@ -2,6 +2,7 @@
 #include <vector>
 #include <unordered_map>
 #include <stack>
+#include <cassert>
 #include "grammar.h"
 #include "elim_rec.h"
 #include "lex.h"
@@ -279,7 +280,7 @@ bool LL_parse( const Grammar& grammar, const string& inpu, ParseTable& table) {
                     symbol_stack.push_back(prod.RHS[i]);
                 }
             } else {
-                printf("Cann not find Corresponding production for table[%c][%c]", top, input[pos]);
+                printf("Cann not find Corresponding production for table[%c][%c]\n", top, input[pos]);
                 return false;
             }
         }
@@ -287,10 +288,58 @@ bool LL_parse( const Grammar& grammar, const string& inpu, ParseTable& table) {
     return true;
 } 
 
+void test_ll_parser(Grammar& grammar, ParseTable& table) {
+    // Test 1
+    string input = "(1+2)*3+(5+6*7);";
+    string toTest = convert(input);
+    cout << "Test sentence " << toTest << "[EOF]" << endl;
+    bool expected_output = true;
+    cout << LL_parse(grammar,toTest, table) << endl;
+    assert(LL_parse(grammar,toTest, table) == expected_output);
+
+    // Test 2
+    input = "1+2;";
+    toTest = convert(input);
+    cout << "Test sentence " << toTest << "[EOF]" << endl;
+    expected_output = true;
+    assert(LL_parse(grammar,toTest, table) == expected_output);
+
+    // Test 3
+    input = "(1+2)*3+(5+6*7);";
+    toTest = convert(input);
+    cout << "Test sentence " << toTest << "[EOF]" << endl;
+    expected_output = true;
+    assert(LL_parse(grammar,toTest, table) == expected_output);
+
+    // Test 4
+    input = "((1+2)*3+4";
+    toTest = convert(input);
+    expected_output =false;
+    assert(LL_parse(grammar,toTest, table) == expected_output);
+
+    // Test 5
+    input = "1+2+3+(*4+5)";
+    toTest = convert(input);
+    expected_output =false;
+    assert(LL_parse(grammar,toTest, table) == expected_output);
+
+    // Test 6
+    input = "(a+b)*(c+d)";
+    toTest = convert(input);
+    expected_output = true;
+    assert(LL_parse(grammar,toTest, table) == expected_output);
+
+    // Test 7
+    input = "((ab3+de4)**5)+1";
+    toTest = convert(input);
+    expected_output = false;
+    assert(LL_parse(grammar,toTest, table) == expected_output);
+}
+
 int main()
 {
     Grammar grammar;
-    grammar.read_generator_list("./grammar4.txt");
+    grammar.read_generator_list("./grammar5.txt");
 
     elim_dir_rec(grammar);
     cout << "----------" << endl;
@@ -339,41 +388,8 @@ int main()
     }
     cout << "---------" << endl;
 
-    string test_phrase = "(1+2)+(1+3)";
-    char res[100];
-    auto symbol = parse(test_phrase);
-
-    int idx = 0;
-
-    for (int i = 0; i < symbol.size(); i++) {
-        switch (symbol[i].first)
-        {
-        
-        case DELIMINATOR:
-        case OPERATOR:
-            res[idx++] = symbol[i].second[0];
-            break;
-
-        case IDENTIFIER:
-            res[idx++] = 'i';
-            break;
-        
-        default:
-            break;
-        }
-    }
-    res[idx] = '\0';
-    
-    string toTest(res);
-    cout << toTest << endl;
-    
-    if (LL_parse(grammar, toTest, parse_table)) {
-        cout << test_phrase << " is part of this grammar" << endl;
-    
-    } else {
-        cout << test_phrase << " is not part of this grammar" << endl;
-
-    }
+    test_ll_parser(grammar, parse_table);
+    cout << "You passed all tests" << endl;
     
     return 0;
 }

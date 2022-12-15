@@ -53,11 +53,11 @@ SymbolTable parse(string str)
         } else if (isDelimiter(str[right]) == true && left == right) { //假设一开始就是 间隔符
             if (isOperator( str[right] )) {
                 // + 1 是用来与该符号临近的符号作比较
-                if (right + 1 <= len && str[right] == str[right + 1] || str[right + 1] == '=') {
-                    //printf("%c%c is a dul Operator", str[right], str[right+1]);
-                    right++;
-                }
-                string tmp(2, str[left]);
+                // if (right + 1 <= len && str[right] == str[right + 1] || str[right + 1] == '=') {
+                //     //printf("%c%c is a dul Operator", str[right], str[right+1]);
+                //     right++;
+                // }
+                string tmp(1, str[left]);
                 update_symbol_table(symbols, OPERATOR, tmp);
                 //printf("%c is an Operator\n", str[right]);
             } else if(isNonsense( str[right] )){

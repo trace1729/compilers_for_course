@@ -27,5 +27,35 @@ typedef vector<pair<SYMBOL, string> > SymbolTable;
 
 SymbolTable parse(string str);
 
+string convert(string input) {
+    char res[100];
+    auto symbol = parse(input);
+
+    int idx = 0;
+
+    for (int i = 0; i < symbol.size(); i++) {
+        if (symbol[i].second[0] == ';') continue;
+        switch (symbol[i].first)
+        {
+        
+        case DELIMINATOR:
+        case OPERATOR:
+            res[idx++] = symbol[i].second[0];
+            break;
+
+        case IDENTIFIER:
+        case DEC:
+            res[idx++] = 'i';
+            break;
+        
+        default:
+            break;
+        }
+    }
+    res[idx] = '\0';
+    
+    string toTest(res);
+    return toTest;
+}
 
 #endif
