@@ -3,7 +3,7 @@ CFLAGS=-g --std=c++17
 ########################################### 编译原理 实验五
 lab05: lab05.o grammar.o lab01.o trie.o lr.h ./grammar5.txt
 	$(CC) $(CFLAGS) -o lab05 lab05.o lab01.o grammar.o trie.o
-#@./lab05
+	@./lab05
 
 lab05.o: lab05.cpp
 	$(CC) $(CFLAGS) -c lab05.cpp
@@ -18,7 +18,7 @@ lab04.o: lab04.cpp
 ########################################### 编译原理 实验三
 trie: trie.o
 	$(CC) $(CFLAGS) -o trie trie.o
-# @./trie
+	@./trie
 
 lab03: lab03.o trie.o grammar.o ./grammar1.txt ./grammar2.txt
 	$(CC) $(CFLAGS) -o lab03 lab03.o grammar.o trie.o 
@@ -40,8 +40,8 @@ lab02.o: lab02.cpp
 
 
 ########################################### 编译原理 实验一
-lab01: test_lex.o lab01.o unit_test.o 
-	$(CC) $(CFLAGS) -o lab01 lab01.o test_lex.o unit_test.o
+lab01: test_lex.o lab01.o 
+	$(CC) $(CFLAGS) -o lab01 lab01.o test_lex.o
 
 test_lex.o: test_lex.cpp # 
 	$(CC) $(CFLAGS) -c test_lex.cpp
@@ -49,9 +49,7 @@ test_lex.o: test_lex.cpp #
 lab01.o: lab01.cpp
 	$(CC) $(CFLAGS) -c lab01.cpp
 
-########################################### unit_test
-unit_test.o: unit_test.cpp unit_test.h
-	$(CC) $(CFLAGS) -c unit_test.cpp
+########################################### util
 
 trie.o: trie.cpp trie.h
 	$(CC) $(CFLAGS) -c trie.cpp

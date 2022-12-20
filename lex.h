@@ -23,10 +23,16 @@ enum SYMBOL {
 
 
 const int N = 1000;
-typedef vector<pair<SYMBOL, string> > SymbolTable;
+using SymbolTable=vector<pair<SYMBOL, string> >;
 
 SymbolTable parse(string str);
 
+/**
+ * @brief This function convert user input to terminal symbols;
+ * 
+ * @param input 
+ * @return string 
+ */
 string convert(string input) {
     char res[100];
     auto symbol = parse(input);
@@ -56,6 +62,43 @@ string convert(string input) {
     
     string toTest(res);
     return toTest;
+}
+
+void print_symbol_table (SymbolTable symbol) {
+    for (int i = 0; i < symbol.size(); i++) {
+        switch (symbol[i].first)
+        {
+        case RESERVED:
+            printf("<%s, ->\n", symbol[i].second.c_str());
+            break;
+        
+        case IDENTIFIER:
+            printf("<0, %s>\n", symbol[i].second.c_str());
+            break;
+        
+        case DELIMINATOR:
+            printf("<%s, ->\n", symbol[i].second.c_str());
+            break;
+
+        case OPERATOR:
+            printf("<%s, ->\n", symbol[i].second.c_str());
+            break;
+
+        case DEC:
+            printf("<1, %s>\n", symbol[i].second.c_str());
+            break;
+        case OCT:
+            printf("<2, %s>\n", symbol[i].second.c_str());
+            break;
+
+        case HEX:
+            printf("<3, %s>\n", symbol[i].second.c_str());
+            break;
+        
+        default:
+            break;
+        }
+    }
 }
 
 #endif
