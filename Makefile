@@ -3,8 +3,11 @@ CFLAGS=-g --std=c++17
 
 ########################################### 编译原理 实验五
 TARGET5 = lab05
-OBJ5 =  lab05.o grammar.o lab01.o trie.o lr.h lex.h
-lab05: $(OBJ) grammar5.txt
+OBJ5 =  lab05.o grammar.o lab01.o trie.o 
+HEADERS5 = lr.h lex.h
+FILE5 = grammar5.txt
+
+$(TARGET5): $(OBJ5) $(HEADERS5) $(FILES)
 	$(CC) $(CFLAGS) -o $(TARGET5) $(OBJ5)
 	@./lab05
 
@@ -13,9 +16,10 @@ lab05.o: lab05.cpp
 
 ########################################### 编译原理 实验四
 TARGET4 = lab04 
-OBJ4 = lab04.o grammar.o lab01.o trie.o lab03.o ./grammar4.txt
+OBJ4 = lab04.o grammar.o lab01.o trie.o lab03.o 
+FILE4 = ./grammar4.txt
 
-$(TARGET4): $(OBJ4) 
+$(TARGET4): $(OBJ4) $(FILE4)
 	$(CC) $(CFLAGS) -o $(TARGET4) $(OBJ4)
 	@./lab04
 
@@ -24,10 +28,11 @@ lab04.o: lab04.cpp
 
 ########################################### 编译原理 实验三
 TARGET3 = lab03
-OBJ3 = lab03.o trie.o grammar.o ./grammar1.txt ./grammar2.txt
+OBJ3 = lab03.o trie.o grammar.o
+FILE3 = ./grammar1.txt ./grammar2.txt
 
-$(TARGET3): $(OBJ3)
-	$(CC) $(CFLAGS) -o $(TARGET3) $(OBJ3)
+$(TARGET3): $(OBJ3) $(FILE3)
+	$(CC) $(CFLAGS) -o $(TARGET3) $(OBJ3) 
 	@./lab03
 
 lab03.o: lab03.cpp
@@ -53,7 +58,7 @@ lab02.o: lab02.cpp
 TARGET1 = lab01
 OBJ1 = test_lex.o lab01.o 
 
-$(TARGET): test_lex.o lab01.o 
+$(TARGET1): $(OBJ1)
 	$(CC) $(CFLAGS) -o $(TARGET1) $(OBJ1)
 
 test_lex.o: test_lex.cpp # 

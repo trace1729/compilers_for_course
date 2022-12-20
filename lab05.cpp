@@ -2,10 +2,11 @@
 #include <vector>
 #include <unordered_map>
 #include <stack>
-#include "grammar.h"
-#include "lex.h"
-#include "lr.h"
 #include <cassert>
+#include "grammar.h"
+#include "lr.h"
+#include "lex.h"
+
 using namespace std;
 #define DEBUG 0
 
@@ -158,7 +159,6 @@ int main()
         productionTable.insert({3, {'T', "T*F"}});
         productionTable.insert({4, {'T', "F"}});
     /** 只是为了序号保持一致， 无实际意义 */
-    
 
     for (auto&[id, prod]: productionTable) {
         auto&[lhs, rhs] = prod;
@@ -166,7 +166,7 @@ int main()
     }
     printf("-------------------------------\n");
 
-    test_lr_parser();
+    // test_lr_parser();
 
     cout << "You passed all tests!" << endl;
 
