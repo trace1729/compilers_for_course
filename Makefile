@@ -7,12 +7,14 @@ OBJ5 =  lab05.o grammar.o lab01.o trie.o
 HEADERS5 = lr.h lex.h
 FILE5 = grammar5.txt
 
+# $@ 表示 目标文件, $^ 表示所有依赖文件 $< 表示第一个依赖文件
+
 $(TARGET5): $(OBJ5) $(HEADERS5) $(FILES)
-	$(CC) $(CFLAGS) -o $(TARGET5) $(OBJ5)
+	$(CC) -o $@ $^
 	@./lab05
 
 lab05.o: lab05.cpp
-	$(CC) $(CFLAGS) -c lab05.cpp
+	$(CC) $(CFLAGS) -c $<
 
 ########################################### 编译原理 实验四
 TARGET4 = lab04 
@@ -81,6 +83,6 @@ clean:
 	rm -f *.o
 
 save:
-	git add *.c *.cpp *.h Makefile 
+	git add *.cpp *.h Makefile 
 	git commit -m "lazy"
 

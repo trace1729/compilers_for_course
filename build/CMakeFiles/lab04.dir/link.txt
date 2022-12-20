@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/lab04.dir/lab04.cpp.o CMakeFiles/lab04.dir/grammar.cpp.o CMakeFiles/lab04.dir/lab01.cpp.o CMakeFiles/lab04.dir/trie.cpp.o CMakeFiles/lab04.dir/lab03.cpp.o  -o lab04 
