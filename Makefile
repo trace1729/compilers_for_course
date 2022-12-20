@@ -1,35 +1,45 @@
 CC=g++
 CFLAGS=-g --std=c++17
+
 ########################################### 编译原理 实验五
-lab05: lab05.o grammar.o lab01.o trie.o lr.h ./grammar5.txt
-	$(CC) $(CFLAGS) -o lab05 lab05.o lab01.o grammar.o trie.o
+TARGET5 = lab05
+OBJ5 =  lab05.o grammar.o lab01.o trie.o lr.h lex.h
+lab05: $(OBJ) grammar5.txt
+	$(CC) $(CFLAGS) -o $(TARGET5) $(OBJ5)
 	@./lab05
 
 lab05.o: lab05.cpp
 	$(CC) $(CFLAGS) -c lab05.cpp
 
 ########################################### 编译原理 实验四
-lab04: lab04.o grammar.o lab01.o trie.o lab03.o ./grammar4.txt
-	$(CC) $(CFLAGS) -o lab04 lab04.o lab03.o lab01.o grammar.o trie.o
+TARGET4 = lab04 
+OBJ4 = lab04.o grammar.o lab01.o trie.o lab03.o ./grammar4.txt
+
+$(TARGET4): $(OBJ4) 
+	$(CC) $(CFLAGS) -o $(TARGET4) $(OBJ4)
 	@./lab04
 
 lab04.o: lab04.cpp
 	$(CC) $(CFLAGS) -c lab04.cpp
-########################################### 编译原理 实验三
-trie: trie.o
-	$(CC) $(CFLAGS) -o trie trie.o
-	@./trie
 
-lab03: lab03.o trie.o grammar.o ./grammar1.txt ./grammar2.txt
-	$(CC) $(CFLAGS) -o lab03 lab03.o grammar.o trie.o 
+########################################### 编译原理 实验三
+TARGET3 = lab03
+OBJ3 = lab03.o trie.o grammar.o ./grammar1.txt ./grammar2.txt
+
+$(TARGET3): $(OBJ3)
+	$(CC) $(CFLAGS) -o $(TARGET3) $(OBJ3)
 	@./lab03
 
 lab03.o: lab03.cpp
 	$(CC) $(CFLAGS) -c lab03.cpp
 
+
 ########################################### 编译原理 实验二
-lab02: lab02.o grammar.o
-	$(CC) $(CFLAGS) -o lab02 lab02.o grammar.o
+TARGET2 = lab02 
+OBJ2 = lab02.o grammar.o
+
+$(TARGET2): $(OBJ2)
+	$(CC) $(CFLAGS) -o $(TARGET2) $(OBJ2)
 	@./lab02
 
 grammar.o: grammar.cpp grammar.h
@@ -40,8 +50,11 @@ lab02.o: lab02.cpp
 
 
 ########################################### 编译原理 实验一
-lab01: test_lex.o lab01.o 
-	$(CC) $(CFLAGS) -o lab01 lab01.o test_lex.o
+TARGET1 = lab01
+OBJ1 = test_lex.o lab01.o 
+
+$(TARGET): test_lex.o lab01.o 
+	$(CC) $(CFLAGS) -o $(TARGET1) $(OBJ1)
 
 test_lex.o: test_lex.cpp # 
 	$(CC) $(CFLAGS) -c test_lex.cpp
@@ -50,10 +63,12 @@ lab01.o: lab01.cpp
 	$(CC) $(CFLAGS) -c lab01.cpp
 
 ########################################### util
+trie: trie.o
+	$(CC) $(CFLAGS) -o trie trie.o
+	@./trie
 
 trie.o: trie.cpp trie.h
 	$(CC) $(CFLAGS) -c trie.cpp
-
 
 clean:
 	rm -f 
