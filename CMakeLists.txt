@@ -13,7 +13,7 @@ add_executable(lab05 lab05.cpp grammar.cpp lab01.cpp)
 ## 输入文件过多可以使用 cmake里 foreach语句。指定文件可以使用正则表达式
 ### 为lab02.cpp 指定输入文件 grammar.txt
 add_custom_command(OUTPUT res/grammar.txt
-        COMMAND ${CMAKE_COMMAND} -E copy res/grammar.txt ${CMAKE_CURRENT_BINARY_DIR}/grammar.txt
+        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/res/grammar.txt ${CMAKE_CURRENT_BINARY_DIR}/grammar.txt
         DEPENDS res/grammar.txt)
 
 add_custom_target(copy_file DEPENDS res/grammar.txt)
@@ -21,7 +21,7 @@ add_dependencies(lab02 copy_file)
 
 ### 为lab04.cpp lab05.cpp 指定输入文件 grammar.txt
 add_custom_command(OUTPUT res/grammar5.txt
-        COMMAND ${CMAKE_COMMAND} -E copy res/grammar5.txt ${CMAKE_CURRENT_BINARY_DIR}/grammar5.txt
+        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/res/grammar5.txt ${CMAKE_CURRENT_BINARY_DIR}/grammar5.txt
         DEPENDS res/grammar5.txt)
 
 add_custom_target(copy_file5 DEPENDS res/grammar5.txt)
