@@ -81,8 +81,4 @@ clean:
 	rm -f 
 	rm -f lab01 lab02 lab03 lab04 lab05 demo 
 	rm -f *.o
-
-save:
-	git add *.cpp *.h Makefile 
-	git commit -m "lazy"
-
+	rm -rf build/*

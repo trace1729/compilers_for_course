@@ -3,9 +3,10 @@
 #include <vector>
 #include "grammar.h"
 using namespace std;
-
+#define DEBUG 0
 // Define the strip() and split() functions here...
 
+#if DEBUG == 1
 // Test the strip() function
 void test_strip() {
   std::vector<std::pair<std::string, std::string> > test_cases = {
@@ -144,6 +145,7 @@ void run_tests() {
         cout << endl;
     }
 }
+#endif 
 
 int main()
 {

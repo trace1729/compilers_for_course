@@ -151,6 +151,7 @@ int main()
             productionTable.insert({prod_id, prod});
             prod_id++;
         }
+
     }
 
     /** 只是为了序号保持一致， 无实际意义 */
@@ -166,7 +167,7 @@ int main()
     }
     printf("-------------------------------\n");
 
-    // test_lr_parser();
+    test_lr_parser();
 
     cout << "You passed all tests!" << endl;
 
