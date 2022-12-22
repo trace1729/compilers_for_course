@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/lab02.dir/lab02.cpp.o CMakeFiles/lab02.dir/grammar.cpp.o  -o lab02 

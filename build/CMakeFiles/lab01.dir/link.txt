@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/lab01.dir/test_lex.cpp.o CMakeFiles/lab01.dir/lab01.cpp.o  -o lab01 

@@ -1,6 +1,0 @@
-/root/trace/learning/course/compilers/build/CMakeFiles/rebuild_cache.dir
-/root/trace/learning/course/compilers/build/CMakeFiles/edit_cache.dir
-/root/trace/learning/course/compilers/build/CMakeFiles/lab05.dir
-/root/trace/learning/course/compilers/build/CMakeFiles/lab02.dir
-/root/trace/learning/course/compilers/build/CMakeFiles/lab04.dir
-/root/trace/learning/course/compilers/build/CMakeFiles/lab01.dir
