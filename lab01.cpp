@@ -1,9 +1,6 @@
 #include <stdio.h>
-#include <string.h>
 #include <string>
-#include <stdlib.h>
 #include <vector>
-#include "stdbool.h"
 #include "lex.h"
 using std::vector;
 bool isNonsense(char ch) {

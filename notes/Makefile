@@ -13,7 +13,7 @@ $(TARGET5): $(OBJ5) $(HEADERS5) $(FILES)
 	$(CC) -o $@ $^
 	@./lab05
 
-lab05.o: lab05.cpp
+lab05.o: ../lab05.cpp
 	$(CC) $(CFLAGS) -c $<
 
 ########################################### 编译原理 实验四
@@ -25,7 +25,7 @@ $(TARGET4): $(OBJ4) $(FILE4)
 	$(CC) $(CFLAGS) -o $(TARGET4) $(OBJ4)
 	@./lab04
 
-lab04.o: lab04.cpp
+lab04.o: ../lab04.cpp
 	$(CC) $(CFLAGS) -c lab04.cpp
 
 ########################################### 编译原理 实验三
@@ -37,7 +37,7 @@ $(TARGET3): $(OBJ3) $(FILE3)
 	$(CC) $(CFLAGS) -o $(TARGET3) $(OBJ3) 
 	@./lab03
 
-lab03.o: lab03.cpp
+lab03.o: ../lab03.cpp
 	$(CC) $(CFLAGS) -c lab03.cpp
 
 
@@ -49,10 +49,10 @@ $(TARGET2): $(OBJ2)
 	$(CC) $(CFLAGS) -o $(TARGET2) $(OBJ2)
 	@./lab02
 
-grammar.o: grammar.cpp grammar.h
+grammar.o: ../grammar.cpp grammar.h
 	$(CC) $(CFLAGS) -c grammar.cpp
 
-lab02.o: lab02.cpp
+lab02.o: ../lab02.cpp
 	$(CC) $(CFLAGS) -c lab02.cpp
 
 
@@ -63,10 +63,10 @@ OBJ1 = test_lex.o lab01.o
 $(TARGET1): $(OBJ1)
 	$(CC) $(CFLAGS) -o $(TARGET1) $(OBJ1)
 
-test_lex.o: test_lex.cpp # 
+test_lex.o: ../test_lex.cpp #
 	$(CC) $(CFLAGS) -c test_lex.cpp
 
-lab01.o: lab01.cpp
+lab01.o: ../lab01.cpp
 	$(CC) $(CFLAGS) -c lab01.cpp
 
 ########################################### util
@@ -74,7 +74,7 @@ trie: trie.o
 	$(CC) $(CFLAGS) -o trie trie.o
 	@./trie
 
-trie.o: trie.cpp trie.h
+trie.o: ../trie.cpp trie.h
 	$(CC) $(CFLAGS) -c trie.cpp
 
 clean:

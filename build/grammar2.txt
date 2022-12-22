@@ -1,7 +1,0 @@
-S->Qc;
-S->c;
-S->cab;
-Q->Rb;
-Q->b;
-R->Sa;
-R->a;

@@ -1,6 +1,3 @@
-#include "iostream"
-#include <stdlib.h>
-#include <string.h>
 #include "lex.h"
 
 

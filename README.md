@@ -10,6 +10,17 @@
 "program": "/root/trace/learning/course/compilers/lab03",
 "cwd": "/root/trace/learning/course/compilers/",
 ```
-在 makefile 里配置好的实验，可以通过 `ctrl` + `shift` + `B` 直接运行
-(前提是安装了 make)
-
+~~在 makefile 里配置好的实验，可以通过 `ctrl` + `shift` + `B` 直接运行
+(前提是安装了 make)~~
+更新了CmakeList, 不需要再使用make, 旧的makefile在notes文件夹下。
+如何运行程序？
+1. 从Clion直接导入项目
+![img.png](res/image/img.png)
+2. 命令行运行
+```bash
+# cd 进入项目文件夹
+cd build
+cmake ../
+make
+# OK 成功生成所有可执行文件
+```
