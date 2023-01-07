@@ -79,16 +79,19 @@ void Grammar::read_generator_list(string filename){
 }
 
 void Grammar::print_grammar() {
+    cout << "¶ÁÈëµÄÎÄ·¨G£º" << endl;
     print_table(generator);
 }
 
 void Grammar::print_non_termial() {
-    cout << "æ–‡æ³•Gçš„éžç»ˆç»“ç¬¦ï¼š" << endl;
+    cout << "ÎÄ·¨GµÄ·ÇÖÕ½á·û£º" << endl;
     print_set<char>(non_terminal);
+    cout << endl;
 }
 void Grammar::print_termial() {
-    cout << "æ–‡æ³•Gçš„ç»ˆç»“ç¬¦" << endl;
+    cout << "ÎÄ·¨GµÄÖÕ½á·û" << endl;
     print_set<char>(terminal);
+    cout << endl;
 }
 
 void Grammar::print_table (const map<char, set<string>>& m) {
@@ -105,12 +108,12 @@ string Grammar::mystrip(string src)
     
     string res = src;
     if (first_not_space != string::npos) {
-        // æ‰¾åˆ°äº†ç©ºæ ¼
+        // ÕÒµ½ÁË¿Õ¸ñ
         res = src.substr(first_not_space);
     }
     int rfirst_not_space = res.find_last_not_of(' ');
     if (rfirst_not_space != string::npos) {
-        // æ‰¾åˆ°äº†ç©ºæ ¼
+        // ÕÒµ½ÁË¿Õ¸ñ
         res = res.substr(0, rfirst_not_space + 1);
     }
     return res;
@@ -124,7 +127,7 @@ vector<string> Grammar::mysplit (string src, char toSplit) {
     while(find_spilt_point != string::npos) {
         string t = src.substr(0, find_spilt_point);
         t = mystrip(t);
-        if (t.length() >= 1 && t != " ") { // åŽ»é™¤ç©ºæ ¼
+        if (t.length() >= 1 && t != " ") { // È¥³ý¿Õ¸ñ
             symbols.push_back(t);
         }
         src = src.substr(find_spilt_point + 1);

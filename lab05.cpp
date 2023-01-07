@@ -138,7 +138,7 @@ void test_lr_parser() {
 int main()
 {
     Grammar grammar;
-    grammar.read_generator_list("./grammar5.txt");
+    grammar.read_generator_list("res/grammar5.txt");
     grammar.print_grammar();
     printf("-------------------------------\n");
     

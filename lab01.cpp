@@ -1,8 +1,9 @@
-#include <stdio.h>
+#include <cstdio>
 #include <string>
 #include <vector>
 #include "lex.h"
 using std::vector;
+
 bool isNonsense(char ch) {
 
     if (ch == ' ' || ch == '\t' || ch == '\n')
@@ -13,7 +14,7 @@ bool isNonsense(char ch) {
 bool isDelimiter(char ch) {
     
     if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '+' || ch == '-'  || ch == '*'  || ch == '/'
-         || ch == '<'  || ch == '>' || ch == '('  || ch == ')' || ch == ';' || ch == '=' || ch == '\0') 
+         || ch == '<'  || ch == '>' || ch == '('  || ch == ')' || ch == ';' || ch == '=' || ch == '\0' || ch == '?')
          return true;
 
     return false;
@@ -31,6 +32,21 @@ bool isReserveWord(string str) {
                 (str == "else")  || (str == "do")   || (str == "if");
 }
 
+bool isNum(char ch) {
+    return ch >= '0' && ch <= '9';
+}
+
+bool isOct(char ch) {
+    return ch >= '0' && ch <= '7';
+}
+
+bool isAlphaBeta(char ch) {
+    return ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z' ;
+}
+
+bool isHex(char ch) {
+    return ch >= '0' && ch <= '9' || ch >= 'A' && ch <= 'F'|| ch >= 'a' && ch <= 'f' ;
+}
 
 
 void update_symbol_table(SymbolTable& symbols, enum SYMBOL s, string c) {
@@ -38,16 +54,16 @@ void update_symbol_table(SymbolTable& symbols, enum SYMBOL s, string c) {
 }
 
 // Parsing the input STRING.
-SymbolTable parse(string str)
+SymbolTable scan(string str)
 {
     SymbolTable symbols;
     int left = 0, right = 0;
     int len = str.length();
  
     while (right <= len && left <= right) {
-        if (isDelimiter(str[right]) == false) {
+        if (!isDelimiter(str[right]) or str[right] == '_') {
             right++;
-        } else if (isDelimiter(str[right]) == true && left == right) { //假设一开始就是 间隔符
+        } else if (isDelimiter(str[right]) && left == right) { //假设一开始就是 间隔符
             if (isOperator( str[right] )) {
                 // + 1 是用来与该符号临近的符号作比较
                 // if (right + 1 <= len && str[right] == str[right + 1] || str[right + 1] == '=') {
@@ -60,7 +76,6 @@ SymbolTable parse(string str)
             } else if(isNonsense( str[right] )){
                 // do nothing
             } else {
-                
                 if (str[right] != '\0') {
                     string tmp(1, str[right]);
                     update_symbol_table( symbols, DELIMINATOR, tmp);
@@ -80,26 +95,68 @@ SymbolTable parse(string str)
                 update_symbol_table(symbols, RESERVED, subString);
                 //printf("%s is reserved word\n", subString);
 
-            /* 判断是不是 十进制数字 */
-            } else if (len == 1 && subString[0] == '0' || 
+                /* 判断是否有错误数字 */
+            }
+               /* 判断是不是 十进制数字 */
+            else if (len == 1 && isNum(subString[0]) ||
                         (len > 1 && subString[0] != '0' \
                           && subString[0] >= '1' && subString[0] <= '9' \
                         )) {
-                update_symbol_table(symbols, DEC, (subString));
+                        int flag = 1;
+                        for (char t: subString) {
+                            if (!isNum(t)) {
+                                update_symbol_table(symbols, ERRO, subString);
+                                flag = 0;
+                            }
+                        }
+                        if (flag)
+                            update_symbol_table(symbols, DEC, (subString));
                 //printf("%s is decimal\n", subString); 
 
             /* 判断是不是 十六进制数字 */
             } else if (len > 2  && subString[0] == '0' && ( subString[1] == 'x' || subString[1] == 'X' ) ) {
-                update_symbol_table(symbols, HEX, (subString));
-                //printf("%s is hex\n", subString); 
+                int flag = 1;
+                for (char t: subString.substr(2)) {
+                    if (!isHex(t)) {
+                        flag = 0;
+                        break;
+                    }
+                }
+                if (flag)
+                    update_symbol_table(symbols, HEX, (subString));
+                else
+                    update_symbol_table(symbols, ERRO, subString);
+                //printf("%s is hex\n", subString);
             
             } else if (len > 1 && subString[0] == '0') {
-                update_symbol_table(symbols, OCT, (subString));
-                //printf("%s is oct\n", subString); 
+                int flag = 1;
+                if (subString[1] == '0') flag = 0;
+                for (char t: subString.substr(1)) {
+                    if (!isOct(t)) {
+                        flag = 0;
+                        break;
+                    }
+                }
+                if (flag)
+                    update_symbol_table(symbols, OCT, (subString));
+                else
+                    update_symbol_table(symbols, ERRO, subString);
+                //printf("%s is oct\n", subString);
 
             } else {
-                update_symbol_table(symbols, IDENTIFIER, (subString));
-                //printf("%s is identifier\n", subString);
+                int flag = 1;
+                if (isNum(subString[0])) flag = 0;
+                // 可以优化
+                for (char t: subString.substr(1)) {
+                    if (isDelimiter(t)) {
+                        flag = 0;
+                        break;
+                    }
+                }
+                if (flag)
+                    update_symbol_table(symbols, IDENTIFIER, (subString));
+                else
+                    update_symbol_table(symbols, ERRO, (subString));
             }
             left = right;
         }
@@ -138,7 +195,9 @@ void print_symbol_table (SymbolTable symbol) {
         case HEX:
             printf("<3, %s>\n", symbol[i].second.c_str());
             break;
-        
+            case ERRO:
+                printf("<ERROR, %s>\n", symbol[i].second.c_str());
+                break;
         default:
             break;
         }
@@ -149,7 +208,7 @@ void print_symbol_table (SymbolTable symbol) {
 
 string convert(string input) {
     char res[100];
-    auto symbol = parse(input);
+    auto symbol = scan(input);
 
     int idx = 0;
 
@@ -157,17 +216,14 @@ string convert(string input) {
         if (symbol[i].second[0] == ';') continue;
         switch (symbol[i].first)
         {
-        
         case DELIMINATOR:
         case OPERATOR:
             res[idx++] = symbol[i].second[0];
             break;
-
         case IDENTIFIER:
         case DEC:
             res[idx++] = 'i';
             break;
-        
         default:
             break;
         }
