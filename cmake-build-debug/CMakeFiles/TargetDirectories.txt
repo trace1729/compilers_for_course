@@ -1,9 +1,0 @@
-D:/learning/c/compilers_for_course/cmake-build-debug/CMakeFiles/lab01.dir
-D:/learning/c/compilers_for_course/cmake-build-debug/CMakeFiles/lab02.dir
-D:/learning/c/compilers_for_course/cmake-build-debug/CMakeFiles/lab04.dir
-D:/learning/c/compilers_for_course/cmake-build-debug/CMakeFiles/lab05.dir
-D:/learning/c/compilers_for_course/cmake-build-debug/CMakeFiles/copy_file0.dir
-D:/learning/c/compilers_for_course/cmake-build-debug/CMakeFiles/copy_file.dir
-D:/learning/c/compilers_for_course/cmake-build-debug/CMakeFiles/copy_file5.dir
-D:/learning/c/compilers_for_course/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/learning/c/compilers_for_course/cmake-build-debug/CMakeFiles/rebuild_cache.dir

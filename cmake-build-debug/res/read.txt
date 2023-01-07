@@ -1,4 +1,0 @@
-if data+92>0x3fz  the?n
-data=data+01a;
-else
-	data=data-01as;
